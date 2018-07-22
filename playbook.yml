@@ -1,0 +1,4 @@
+- name: Deploy project
+  hosts: all
+  roles:
+     - test-case    

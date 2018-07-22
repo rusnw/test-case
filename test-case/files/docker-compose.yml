@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=httpd.local
+  httpd:
+    build: .
+    links:
+      - maria_db:db
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - 8000
+    environment:
+      - VIRTUAL_HOST=httpd.local
+  maria_db:
+    container_name: mariadb
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql

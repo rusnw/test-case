@@ -1,0 +1,14 @@
+---
+- name: Create project directory {{ docker_service_deploy_project_dir }}
+  file: path={{ docker_service_deploy_project_dir }} state=directory
+
+- name: Rsync project files
+  synchronize: src="{{ docker_service_deploy_src }}" dest="{{ docker_service_deploy_project_dir }}" recursive=yes
+
+- name: Start project
+  docker_service:
+    project_src: "{{ docker_service_deploy_project_dir }}/files"
+    scale:
+      httpd: "{{ docker_project_scale }}"
+    state: present
+    restarted: yes

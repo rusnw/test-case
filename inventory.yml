@@ -1,0 +1,7 @@
+all:
+  hosts:
+    remote.domain
+  vars:
+    ansible_ssh_user=<user>
+    ansible_ssh_password=<password>
+      

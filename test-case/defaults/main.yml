@@ -1,0 +1,4 @@
+---
+docker_service_deploy_src: "{{ role_path }}/files"
+docker_service_deploy_project_dir: /opt/docker_service
+docker_project_scale: 5
